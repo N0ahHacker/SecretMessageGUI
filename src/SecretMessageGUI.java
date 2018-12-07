@@ -4,11 +4,15 @@ import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 import javax.swing.SwingConstants;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import java.awt.Font;
+import java.awt.Color;
 
 public class SecretMessageGUI extends JFrame {
 	private JTextField txtKey;
-	private JTextArea TextIn;
-	private JTextArea TextOut;
+	private JTextArea textIn;
+	private JTextArea textOut;
 	public String encode( String message, int keyVal){
 		String output = "";
 		char key = (char) keyVal;
@@ -43,17 +47,20 @@ public class SecretMessageGUI extends JFrame {
 		return output;
 	}
 	public SecretMessageGUI() {
+		getContentPane().setBackground(new Color(176, 196, 222));
 		setTitle("Noah's Secret Message app");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		getContentPane().setLayout(null);
 		
-		TextIn = new JTextArea();
-		TextIn.setBounds(10, 11, 564, 128);
-		getContentPane().add(TextIn);
+		textIn = new JTextArea();
+		textIn.setFont(new Font("Microsoft JhengHei UI Light", Font.PLAIN, 18));
+		textIn.setBounds(10, 11, 564, 128);
+		getContentPane().add(textIn);
 		
-		TextOut = new JTextArea();
-		TextOut.setBounds(10, 196, 564, 154);
-		getContentPane().add(TextOut);
+		textOut = new JTextArea();
+		textOut.setFont(new Font("Microsoft JhengHei UI Light", Font.PLAIN, 18));
+		textOut.setBounds(10, 196, 564, 154);
+		getContentPane().add(textOut);
 		
 		JLabel lblKey = new JLabel("Key:");
 		lblKey.setHorizontalAlignment(SwingConstants.RIGHT);
@@ -66,12 +73,25 @@ public class SecretMessageGUI extends JFrame {
 		txtKey.setColumns(10);
 		
 		JButton btnEncodedecode = new JButton("Encode/Decode");
-		btnEncodedecode.setBounds(360, 156, 120, 23);
+		btnEncodedecode.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				try{
+				String message = textIn.getText();
+				int key = Integer.parseInt(txtKey.getText() );
+				String output = encode(message, key);
+				textOut.setText(output);
+				}catch (Exception ex){
+					
+				}
+			}
+		});
+		btnEncodedecode.setBounds(360, 156, 134, 23);
 		getContentPane().add(btnEncodedecode);
 	}
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-
+		SecretMessageGUI theApp = new SecretMessageGUI();
+		theApp.setSize(new java.awt.Dimension(600,400));
+		theApp.setVisible(true);
 	}
 }
