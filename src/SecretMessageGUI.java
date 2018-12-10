@@ -1,6 +1,7 @@
 import javax.swing.JFrame;
 import javax.swing.JTextArea;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 import javax.swing.SwingConstants;
@@ -53,11 +54,15 @@ public class SecretMessageGUI extends JFrame {
 		getContentPane().setLayout(null);
 		
 		textIn = new JTextArea();
+		textIn.setWrapStyleWord(true);
+		textIn.setLineWrap(true);
 		textIn.setFont(new Font("Microsoft JhengHei UI Light", Font.PLAIN, 18));
 		textIn.setBounds(10, 11, 564, 128);
 		getContentPane().add(textIn);
 		
 		textOut = new JTextArea();
+		textOut.setWrapStyleWord(true);
+		textOut.setLineWrap(true);
 		textOut.setFont(new Font("Microsoft JhengHei UI Light", Font.PLAIN, 18));
 		textOut.setBounds(10, 196, 564, 154);
 		getContentPane().add(textOut);
@@ -68,6 +73,8 @@ public class SecretMessageGUI extends JFrame {
 		getContentPane().add(lblKey);
 		
 		txtKey = new JTextField();
+		txtKey.setText("3");
+		txtKey.setHorizontalAlignment(SwingConstants.CENTER);
 		txtKey.setBounds(250, 157, 86, 20);
 		getContentPane().add(txtKey);
 		txtKey.setColumns(10);
@@ -81,7 +88,10 @@ public class SecretMessageGUI extends JFrame {
 				String output = encode(message, key);
 				textOut.setText(output);
 				}catch (Exception ex){
-					
+					JOptionPane.showMessageDialog(null, 
+							"Please enter a whole number for the encryption key" );
+					txtKey.requestFocus();
+					txtKey.selectAll();
 				}
 			}
 		});
