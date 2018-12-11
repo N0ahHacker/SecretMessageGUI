@@ -73,7 +73,7 @@ public class SecretMessageGUI extends JFrame {
 		getContentPane().add(lblKey);
 		
 		txtKey = new JTextField();
-		txtKey.setText("3");
+		txtKey.setText("12");
 		txtKey.setHorizontalAlignment(SwingConstants.CENTER);
 		txtKey.setBounds(250, 157, 86, 20);
 		getContentPane().add(txtKey);
