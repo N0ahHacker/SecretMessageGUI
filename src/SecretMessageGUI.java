@@ -9,11 +9,15 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.Font;
 import java.awt.Color;
+import javax.swing.JSlider;
+import javax.swing.event.ChangeListener;
+import javax.swing.event.ChangeEvent;
 
 public class SecretMessageGUI extends JFrame {
 	private JTextField txtKey;
 	private JTextArea textIn;
 	private JTextArea textOut;
+	private JSlider slider;
 	public String encode( String message, int keyVal){
 		String output = "";
 		char key = (char) keyVal;
@@ -69,13 +73,13 @@ public class SecretMessageGUI extends JFrame {
 		
 		JLabel lblKey = new JLabel("Key:");
 		lblKey.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblKey.setBounds(200, 160, 46, 14);
+		lblKey.setBounds(250, 160, 46, 14);
 		getContentPane().add(lblKey);
 		
 		txtKey = new JTextField();
 		txtKey.setText("12");
 		txtKey.setHorizontalAlignment(SwingConstants.CENTER);
-		txtKey.setBounds(250, 157, 86, 20);
+		txtKey.setBounds(300, 157, 86, 20);
 		getContentPane().add(txtKey);
 		txtKey.setColumns(10);
 		
@@ -83,10 +87,10 @@ public class SecretMessageGUI extends JFrame {
 		btnEncodedecode.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				try{
-				String message = textIn.getText();
-				int key = Integer.parseInt(txtKey.getText() );
-				String output = encode(message, key);
-				textOut.setText(output);
+					String message = textIn.getText();
+					int key = Integer.parseInt(txtKey.getText() );
+					String output = encode(message, key);
+					textOut.setText(output);
 				}catch (Exception ex){
 					JOptionPane.showMessageDialog(null, 
 							"Please enter a whole number for the encryption key" );
@@ -95,8 +99,30 @@ public class SecretMessageGUI extends JFrame {
 				}
 			}
 		});
-		btnEncodedecode.setBounds(360, 156, 134, 23);
+		btnEncodedecode.setBounds(419, 156, 134, 23);
 		getContentPane().add(btnEncodedecode);
+		
+		slider = new JSlider();
+		slider.addChangeListener(new ChangeListener() {
+			public void stateChanged(ChangeEvent arg0) {
+				txtKey.setText("" + slider.getValue());
+				String message = textIn.getText();
+				int key = Integer.parseInt(txtKey.getText() );
+				String output = encode(message, key);
+				textOut.setText(output);
+			}
+		});
+		slider.setValue(12);
+		slider.setPaintTicks(true);
+		slider.setPaintLabels(true);
+		slider.setSnapToTicks(true);
+		slider.setMinorTickSpacing(1);
+		slider.setMajorTickSpacing(13);
+		slider.setMinimum(-26);
+		slider.setMaximum(26);
+		slider.setBackground(new Color(176, 196, 222));
+		slider.setBounds(20, 150, 200, 45);
+		getContentPane().add(slider);
 	}
 
 	public static void main(String[] args) {
