@@ -12,6 +12,7 @@ import java.awt.Color;
 import javax.swing.JSlider;
 import javax.swing.event.ChangeListener;
 import javax.swing.event.ChangeEvent;
+import java.awt.Component;
 
 public class SecretMessageGUI extends JFrame {
 	private JTextField txtKey;
@@ -73,13 +74,13 @@ public class SecretMessageGUI extends JFrame {
 		
 		JLabel lblKey = new JLabel("Key:");
 		lblKey.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblKey.setBounds(250, 160, 46, 14);
+		lblKey.setBounds(180, 160, 46, 14);
 		getContentPane().add(lblKey);
 		
 		txtKey = new JTextField();
 		txtKey.setText("12");
 		txtKey.setHorizontalAlignment(SwingConstants.CENTER);
-		txtKey.setBounds(300, 157, 86, 20);
+		txtKey.setBounds(230, 157, 86, 20);
 		getContentPane().add(txtKey);
 		txtKey.setColumns(10);
 		
@@ -99,7 +100,7 @@ public class SecretMessageGUI extends JFrame {
 				}
 			}
 		});
-		btnEncodedecode.setBounds(419, 156, 134, 23);
+		btnEncodedecode.setBounds(330, 156, 130, 23);
 		getContentPane().add(btnEncodedecode);
 		
 		slider = new JSlider();
@@ -121,8 +122,21 @@ public class SecretMessageGUI extends JFrame {
 		slider.setMinimum(-26);
 		slider.setMaximum(26);
 		slider.setBackground(new Color(176, 196, 222));
-		slider.setBounds(20, 150, 200, 45);
+		slider.setBounds(20, 150, 175, 45);
 		getContentPane().add(slider);
+		
+		JButton btnMoveUp = new JButton("Move up");
+		btnMoveUp.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				textIn.setText(textOut.getText());
+				String message = textIn.getText();
+				int key = Integer.parseInt(txtKey.getText() );
+				String output = encode(message, key);
+				textOut.setText(output);
+			}
+		});
+		btnMoveUp.setBounds(480, 156, 89, 23);
+		getContentPane().add(btnMoveUp);
 	}
 
 	public static void main(String[] args) {
