@@ -13,12 +13,15 @@ import javax.swing.JSlider;
 import javax.swing.event.ChangeListener;
 import javax.swing.event.ChangeEvent;
 import java.awt.Component;
+import javax.swing.JScrollPane;
 
 public class SecretMessageGUI extends JFrame {
 	private JTextField txtKey;
 	private JTextArea textIn;
 	private JTextArea textOut;
 	private JSlider slider;
+	private JScrollPane scrollPane;
+	private JScrollPane scrollPane_1;
 	public String encode( String message, int keyVal){
 		String output = "";
 		char key = (char) keyVal;
@@ -58,19 +61,25 @@ public class SecretMessageGUI extends JFrame {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		getContentPane().setLayout(null);
 		
+		scrollPane = new JScrollPane();
+		scrollPane.setBounds(10, 11, 564, 128);
+		getContentPane().add(scrollPane);
+		
 		textIn = new JTextArea();
+		scrollPane.setViewportView(textIn);
 		textIn.setWrapStyleWord(true);
 		textIn.setLineWrap(true);
 		textIn.setFont(new Font("Microsoft JhengHei UI Light", Font.PLAIN, 18));
-		textIn.setBounds(10, 11, 564, 128);
-		getContentPane().add(textIn);
+		
+		scrollPane_1 = new JScrollPane();
+		scrollPane_1.setBounds(10, 196, 564, 154);
+		getContentPane().add(scrollPane_1);
 		
 		textOut = new JTextArea();
+		scrollPane_1.setViewportView(textOut);
 		textOut.setWrapStyleWord(true);
 		textOut.setLineWrap(true);
 		textOut.setFont(new Font("Microsoft JhengHei UI Light", Font.PLAIN, 18));
-		textOut.setBounds(10, 196, 564, 154);
-		getContentPane().add(textOut);
 		
 		JLabel lblKey = new JLabel("Key:");
 		lblKey.setHorizontalAlignment(SwingConstants.RIGHT);
